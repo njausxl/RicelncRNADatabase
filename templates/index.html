@@ -1,0 +1,379 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% block head_index %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rice database</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <style>
+    .header-bg {
+      background-color: #09453F;
+      text-align: center;
+      padding: 0 0;
+    }
+    .header-bg img {
+      max-width: 100%;
+      height: auto;
+    }
+    .navbar-nav {
+      margin-left: 0;
+      margin-right: 0;
+      max-width: 1200px;
+    }
+    .content {
+      margin: 20px auto;
+      max-width: 1200px;
+    }
+    .carousel-item img {
+      max-height: 380px;
+      object-fit: cover;
+    }
+    footer {
+      background-color: #f8f9fa;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+    /* 导航栏样式 */
+    .custom-navbar {
+      background-color: #0B613E !important; /* 设置导航栏背景颜色为 #0B613E */
+    }
+    .navbar-nav {
+      width: 100%;
+      justify-content: space-around;
+    }
+
+    .navbar-nav .nav-item {
+      text-align: center;
+    }
+
+    .navbar-nav .nav-link {
+      color: #fff;
+      font-size: 1.2rem; /* 增大字体 */
+      padding: 0.8rem 1rem;
+      background-color: #0B613E; /* 设置栏目背景颜色 */
+      border-radius: 5px; /* 可选：添加圆角 */
+      transition: all 0.3s ease; /* 平滑过渡效果 */
+    }
+    .navbar-nav .nav-link:hover {
+      background-color: #e8f5e9; /* 悬停时背景颜色 */
+      color: #000; /* 悬停时文字颜色 */
+    }
+    .carousel-item img {
+        {#width: 400px; /* 固定宽度 */#}
+        {#height: 300px; /* 固定高度 */#}
+        object-fit: cover; /* 确保图像填充容器且不拉伸 */
+    }
+  </style>
+</head>
+{% endblock %}
+
+<body>
+  <!-- Header -->
+  <div class="header-bg">
+    <img src="../static/image/title.png" alt="Header Image">
+  </div>
+
+  <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "index_url" %}">Home</a>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="statisticsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Browse
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="statisticsDropdown">
+                <li><a class="dropdown-item" href="{% url "jbrowse_url" %}">JBrowse</a></li>
+                <li><a class="dropdown-item" href="{% url "blast_url" %}">Blast</a></li>
+                <li><a class="dropdown-item" href="{% url "table_lncRNA_url" %}">LncRNA Search</a></li>
+            </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">Search</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Tools</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "download_url" %}">Download</a>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="statisticsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Statistics
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="statisticsDropdown">
+                <li><a class="dropdown-item" href="{% url "statistics1_url" %}">Statistics 1</a></li>
+                <li><a class="dropdown-item" href="{% url "statistics2_url" %}">Statistics 2</a></li>
+            </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "documentation_url" %}">Documentation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "submit_url" %}">Submit</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "contact_url" %}">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{% block Content_Section_index %}
+<!-- Content Section -->
+<div class="container mt-4">
+    <!-- Overview -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="d-flex align-items-center">
+                <img src="{% static 'image/shuye.png' %}" alt="Leaf" class="me-3" style="width: 40px; height: auto;">
+                <h3 class="fw-bold" style="color: #083A3B">Overview</h3>
+            </div>
+            <hr class="my-1" style="border-top: 1px solid black; width: 625px; color: #0B613E">
+            <p style="text-align: justify;">
+                PLncDB (Plant Long noncoding RNA Database) is a comprehensive functional plant lncRNA database. In current version, PLncDB contains 1246372 lncRNAs and predicted lncRNA-target pairs in 80 species phylogenetically ranging from chlorophytes to embryophytes. In addition, 13834 transcriptome datasets derived from various samples including different tissues, developmental stages, mutants and stress treatments were used for quantification of lncRNA/gene expression patterns. Moreover, 456 epigenetic modification datasets and small RNA datasets were also integrated to explore the epigenetic regulation of lncRNAs. PLncDB has many unique features such as annotating lncRNAs with a uniform method, solid and extensive information on expression, references, and providing many convenient data accesses, powerful search and download engines. We believe PLncDB is a truly functional knowledgebase and will provide novel insights into plant lncRNA research and benefit the whole research community.
+            </p>
+        </div>
+
+        <!-- Right Section -->
+        <div class="col-md-6">
+            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'image/636_380_1.png' %}">
+                    </div>
+
+                    <div class="carousel-item active">
+                        <img src="{% static 'image/636_380_2.png' %}">
+                    </div>
+
+                    <div class="carousel-item active">
+                        <img src="{% static 'image/636_380_3.png' %}">
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick links -->
+    <div class="row" style="margin:15px 0 15px 0">
+        <div class="col-3" style="padding-right: 0">
+{#            <h3 class="h3_1 h3_6" style="background-image:url(../static/image/shuye.png); font-family:'Comic Sans MS',sans-serif; margin-bottom: 0; padding-bottom: 8px">Tools quick links#}
+{#            </h3>#}
+            <div class="d-flex align-items-center">
+                <img src="{% static 'image/shuye.png' %}" alt="Leaf" class="me-3" style="width: 40px; height: auto;">
+                <h3 class="fw-bold" style="color: #083A3B">Quick links</h3>
+            </div>
+        </div>
+        <div class="col-9" style="padding-left: 0">
+            <hr style="border: 1px dashed #ccc; width: 100%;height: 1px; margin: 8px" />
+            <hr style="border: 1px dashed #ccc; width: 100%;height: 1px; margin: 8px" />
+        </div>
+
+{#        <div class="row">#}
+            <!-- Genome browsing and annotation -->
+            <div class="col-lg-3">
+                <div class="table-module" style="height: 230px;background-color: #fff5e7">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img style="width: 60px;" src="../static/image/Polyploidy.png">
+                                </td>
+                                <td>
+                                    <h6 class="portal_module_font"><b>Genome browsing and annotation</b></h6>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row" style="margin-left: 0;">
+                        <ul style="padding-left: 20px">
+{#                                <i class="bi bi-chevron-right"><a href="{% url "JBrowse_index_url" %}" >Jbrowse</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "circos_url" %}" >ShinyCircos</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "interproscan_url" %}">Interproscan</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "iTAK_url" %}">iTAK</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "dupgen_finder_url" %}">Dupgen finder</a></i>#}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Homology search and alignment -->
+            <div class="col-lg-3">
+                <div class="table-module" style="height: 230px;background-color: #EDF2FF">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img style="width: 60px;" src="../static/image/Polyploidy.png">
+                                </td>
+                                <td>
+                                    <h6 class="portal_module_font"><b>Homology search and alignment</b></h6>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row" style="margin-left: 0;">
+                        <ul style="padding-left: 20px">
+{#                                <i class="bi bi-chevron-right"><a href="{% url "blast_match_url" %}" >Bl-match</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "sequence_fetch_url" %}" >Seq-fatch</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "blast_url" %}">Blast</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "diamond_url" %}">Diamond</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "sequenceserver_url" %}">Bi-visualazition</a></i>#}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Synteny inference -->
+            <div class="col-lg-3">
+                <div class="table-module" style="height: 230px;background-color: #fff5e7">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img style="width: 60px;" src="../static/image/Polyploidy.png">
+                                </td>
+                                <td>
+                                    <h6 class="portal_module_font"><b>Synteny inference</b></h6>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row" style="margin-left: 0;">
+                        <ul style="padding-left: 20px">
+{#                                <i class="bi bi-chevron-right"><a href="{% url "mcscanx_run_url" %}" >MCScanX</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "colinearscan_url" %}" >ColinearScan</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "synvisio_url" %}" >Synviso</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "block_number_count_url" %}" >Syn-blocks-stat</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "zu_blast_dotplot_url" %}" >B-Dotter</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "zu_block_dotplot_url" %}" >BB-Dotter</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "zu_ks_dotplot_url" %}" >BK-Dotter</a></i>#}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evaluation of nucleotide mutation -->
+            <div class="col-lg-3">
+                <div class="table-module" style="height: 230px;background-color: #EDF2FF">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img style="width: 60px;" src="../static/image/Dating.png">
+                                </td>
+                                <td>
+                                    <h6 class="portal_module_font"><b>Evaluation of nucleotide mutation</b></h6>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row" style="margin-left: 0;">
+                        <ul style="padding-left: 20px">
+{#                                <i class="bi bi-chevron-right"><a href="{% url "paraat_url" %}" >ParaAT</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "kaks_calculator_url" %}" >KaKs calculator</a></i>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "zu_ks_calculate_url" %}" >NG-KaKs-Cal</a></i>#}
+{#                                <p></p>#}
+{#                                <i class="bi bi-chevron-right"><a href="{% url "wgdi_blockinfo_url" %}" >WinO-WGDI</a></i>#}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+{#        </div>#}
+    </div>
+
+    <div class="row" style="margin:15px 0 15px 0">
+        <div class="col-6">
+            <div class="d-flex align-items-center">
+                <img src="{% static 'image/shuye.png' %}" alt="Leaf" class="me-3" style="width: 40px; height: auto;">
+                <h3 class="fw-bold" style="color: #083A3B">Update Log</h3>
+            </div>
+            <p>Here you can list the recent updates to the website or project.</p>
+        </div>
+
+        <div class="col-6">
+            <div class="d-flex align-items-center">
+                <img src="{% static 'image/shuye.png' %}" alt="Leaf" class="me-3" style="width: 40px; height: auto;">
+                <h3 class="fw-bold" style="color: #083A3B">Citation</h3>
+            </div>
+            <p>Provide citation information here for users who want to reference your work.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+<!-- Footer -->
+<footer class="py-5 bg-success">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="widget">
+                    <h5 class="widgetheading" target="_blank" style="color: #fff;">Our Contact</h5>
+                    <address target="_blank" style="color: #fff;">
+                        College of Plant Protection, Weigang Campus, Nanjing Agricultural University
+                    </address>
+                    <p target="_blank" style="color: #fff;">
+                        <i class="icon-envelope-alt" target="_blank" style="color: #fff;"></i> 1 Weigang, Xuanwu District, Nanjing,
+                        Jiangsu Province, 210014, China.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="widget">
+                    <h5 class="widgetheading" target="_blank" style="color: #fff;">Quick Links</h5>
+                    <ul class="link-list" style="padding-left: 0">
+                        <li><a href="https://www.ncbi.nlm.nih.gov/" target="_blank" target="_blank" style="color: #fff;">NCBI, </a> <a href="https://www.embl.org/" target="_blank" target="_blank" style="color: #fff;">EBL,</a> <a href="https://www.ddbj.nig.ac.jp/index-e.html" target="_blank" target="_blank" style="color: #fff;">DDBJ</a></li>
+                        <li><a href="http://pfam.xfam.org/" target="_blank" target="_blank" style="color: #fff;">Protein families
+                            database</a></li>
+                        <li><a href="https://swissmodel.expasy.org/" target="_blank" style="color: #fff;">SWISS-MODEL</a></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=D893WCAw6HtIN0e-JpoOpnxSx66BnaTzTxRijE_7Xaw&cl=ffffff&w=a"></script>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+{#<script src="{% static 'js/jquery.min.js' %}"></script>#}
+
+</body>
+</html>

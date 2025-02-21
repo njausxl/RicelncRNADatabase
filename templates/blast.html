@@ -1,0 +1,257 @@
+
+{% extends 'index.html' %}
+{% load static %}
+
+{% block head_index %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice database</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=187f03a486fcdd49e74ae2e8ee754eb1"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.dataTables.css' %}">
+    <style>
+        .header-bg {
+            background-color: #09453F;
+            text-align: center;
+            padding: 0 0;
+        }
+        .header-bg img {
+            max-width: 100%;
+            height: auto;
+        }
+        .navbar-nav {
+            margin-left: 0;
+            margin-right: 0;
+            max-width: 1200px;
+        }
+        .content {
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        .carousel-item img {
+            max-height: 380px;
+            object-fit: cover;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+        /* 导航栏样式 */
+        .custom-navbar {
+            background-color: #0B613E !important; /* 设置导航栏背景颜色为 #0B613E */
+        }
+        .navbar-nav {
+            width: 100%;
+            justify-content: space-around;
+        }
+        .navbar-nav .nav-item {
+            text-align: center;
+        }
+        .navbar-nav .nav-link {
+            color: #fff;
+            font-size: 1.2rem; /* 增大字体 */
+            padding: 0.8rem 1rem;
+            background-color: #0B613E; /* 设置栏目背景颜色 */
+            border-radius: 5px; /* 可选：添加圆角 */
+            transition: all 0.3s ease; /* 平滑过渡效果 */
+        }
+        .navbar-nav .nav-link:hover {
+            background-color: #e8f5e9; /* 悬停时背景颜色 */
+            color: #000; /* 悬停时文字颜色 */
+        }
+        .carousel-item img {
+            object-fit: cover; /* 确保图像填充容器且不拉伸 */
+        }
+        #mapContainer {
+            width: 100%;
+            height: 500px;
+        }
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+{% endblock %}
+
+
+{% block Content_Section_index %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-md-8">
+                <div class="d-flex align-items-center">
+                    <img src="{% static 'image/shuye.png' %}" alt="Leaf" class="me-3" style="width: 40px; height: auto;">
+                    <h3 class="fw-bold" style="color: #083A3B">Table Search</h3>
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+
+            <div class="col-md-12">
+
+    <form action="blast_run" method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8" style="padding-top: 20px">
+                <div class="form-group">
+                    <label for="lastName" class="form-label">Query Sequence</label>
+                     <button type="button" class="" id="query_sequence">Example</button>
+                    <div class="input-group">
+                        <textarea class="form-control" id="lastName_query_sequence" name="query_sequence" required style="height: 300px"></textarea>
+                    </div>
+                    <div class="invalid-feedback">
+                        Valid last name is required.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <label for="state" class="form-label">query genome</label>
+                <select class="form-control" id="state" name="sp_data_1" required>
+                    <option value="Rice">Oryza sativa</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please provide a valid state.
+                </div>
+            </div>
+
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <input class="w-100 btn btn-primary btn-lg col-md-12" style="margin-top: 10px" type="submit" value="Search">
+            </div>
+
+
+            {% if blast_results %}
+                <hr width="100%" style="border: dotted 2px">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div class="col-md-6 text-center" style="position: relative;">
+                        <h4 class="h3_1 h3_6" style="font-family:'Arial',sans-serif;color:black; position: relative; z-index: 1;padding-left: 0px; padding-bottom: 10px">Blast results<i></i></h4>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <img src="../../static/image/shuye.png" style="position: absolute; top: 0; left: 0; transform: translate(-430%, -130%);">
+                            <hr style="position: absolute; top: 50%; left: 50%; width: 100%; border-color: black;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 justify-content-center" style="overflow-x: auto;">
+                    <table id="myTable2">
+                        <thead>
+                            <tr>
+                                <th>Query ID</th>
+                                <th>Subject ID</th>
+                                <th>Identity</th>
+                                <th>Length</th>
+                                <th>Mismatch</th>
+                                <th>Gapopen</th>
+                                <th>Qstart</th>
+                                <th>Qend</th>
+                                <th>Sstart</th>
+                                <th>Send</th>
+                                <th>evalue</th>
+                                <th>Bitscore</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pair in blast_results %}
+                                <tr>
+                                    <td>{{ pair.0 }}</td>
+                                    <td>{{ pair.1 }}</td>
+                                    <td>{{ pair.2 }}</td>
+                                    <td>{{ pair.3 }}</td>
+                                    <td>{{ pair.4 }}</td>
+                                    <td>{{ pair.5 }}</td>
+                                    <td>{{ pair.6 }}</td>
+                                    <td>{{ pair.7 }}</td>
+                                    <td>{{ pair.8 }}</td>
+                                    <td>{{ pair.9 }}</td>
+                                    <td>{{ pair.10 }}</td>
+                                    <td>{{ pair.11 }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+
+
+
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#myTable').DataTable();
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('#myTable2').DataTable();
+            });
+        </script>
+
+    <script>
+        document.getElementById('query_sequence').addEventListener('click', function() {
+            var exampleText = `>Ath01G0001
+TTTTCTCCCATGTGTTGTGCTCATTGCTCTTGCAACAGTAGTGGCAGCAGGAATTGGTCTAGTGCTTGAT
+CTAGTCATGAGCTCCTAATCTAGATGCTCAAGCTTGAGGGTAACAACAGATGGGCAGCTAGACCGCTATA
+GGCAGGCTGGAAAGGGAAGTGGAGGCAGCGATAGTGGGGATGGGGATGACTGGTCTAGAGGAGGAAGAAA
+GAAGGAGAA
+>Ath01G0002
+GTAGTCTCCACAGGAGCAAACCCCATCCTTGAAATGGTGGAACCTGCGCACGCAGTCAGATTCTTCATAA
+TCCTGATAGGTGTCCCAGCTGGGGTGTTCATCAGAGCAAATGCAATGGCCAATCTCTCACTGTGGTATTT
+TAACGACTCCAGCTTTAACTCATGATCCACCATATGCAAGGCACAGGTTATGTCGGGCTTATAGCCTTGT
+TTATCCATCTCTTTGTATAATCTGTCTAGCTCGTCTTTAATCTCATCTATCATTGGGC
+`;
+            document.getElementById('lastName_query_sequence').value = exampleText;
+        });
+    </script>
+
+                    <center>
+                        <span id="wait1" class="spinner-border spinner-border-sm" style="display:none"></span>
+                        <span id="wait2" style="display:none;padding-top: 30px">&nbsp;&nbsp;It is running, please wait a moment!</span>
+                    </center>
+                    <script>
+                        function go() {
+                            var hh1 = document.getElementById("wait1");
+                            var hh2 = document.getElementById("wait2");
+                            if (hh1.style.display === "none" && hh2.style.display === "none") {
+                                hh1.style.display = "inline-block";
+                                hh2.style.display = "inline-block"
+                            }
+                            document.getElementById('go').submit()
+                        }
+                    </script>
+    </form>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}
+
+

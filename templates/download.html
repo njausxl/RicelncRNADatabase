@@ -1,0 +1,154 @@
+
+{% extends 'index.html' %}
+{% load static %}
+
+{% block head_index %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice database</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=187f03a486fcdd49e74ae2e8ee754eb1"></script>
+    <style>
+        .header-bg {
+            background-color: #09453F;
+            text-align: center;
+            padding: 0 0;
+        }
+        .header-bg img {
+            max-width: 100%;
+            height: auto;
+        }
+        .navbar-nav {
+            margin-left: 0;
+            margin-right: 0;
+            max-width: 1200px;
+        }
+        .content {
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        .carousel-item img {
+            max-height: 380px;
+            object-fit: cover;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+        /* 导航栏样式 */
+        .custom-navbar {
+            background-color: #0B613E !important; /* 设置导航栏背景颜色为 #0B613E */
+        }
+        .navbar-nav {
+            width: 100%;
+            justify-content: space-around;
+        }
+        .navbar-nav .nav-item {
+            text-align: center;
+        }
+        .navbar-nav .nav-link {
+            color: #fff;
+            font-size: 1.2rem; /* 增大字体 */
+            padding: 0.8rem 1rem;
+            background-color: #0B613E; /* 设置栏目背景颜色 */
+            border-radius: 5px; /* 可选：添加圆角 */
+            transition: all 0.3s ease; /* 平滑过渡效果 */
+        }
+        .navbar-nav .nav-link:hover {
+            background-color: #e8f5e9; /* 悬停时背景颜色 */
+            color: #000; /* 悬停时文字颜色 */
+        }
+        .carousel-item img {
+            object-fit: cover; /* 确保图像填充容器且不拉伸 */
+        }
+        #mapContainer {
+            width: 100%;
+            height: 500px;
+        }
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+{% endblock %}
+
+
+{% block Content_Section_index %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                    <img src="{% static 'image/shuye.png' %}" alt="Leaf" class="me-3" style="width: 40px; height: auto;">
+                    <h3 class="fw-bold" style="color: #083A3B">Download</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Files</th>
+                        <th>Size</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>rice7_all.fa</td>
+                        <td>61,440KB</td>
+                        <td><a href="{% static "data_upload/rice7_all.fa" %}" download>download</a></td>
+                    </tr>
+                    <tr>
+                        <td>rice7_all.gff3</td>
+                        <td>26,880KB</td>
+                        <td><a href="{% static "data_upload/rice7_all.gff3" %}" download>download</a></td>
+                    </tr>
+                    <tr>
+                        <td>rice7_all.gtf</td>
+                        <td>68,493KB</td>
+                        <td><a href="{% static "data_upload/rice7_all.gtf" %}" download>download</a></td>
+                    </tr>
+                    <tr>
+                        <td>RiceLncRNA.fa</td>
+                        <td>4,338KB</td>
+                        <td><a href="{% static "data_upload/RiceLncRNA.fa" %}" download>download</a></td>
+                    </tr>
+                    <tr>
+                        <td>RiceLncRNA.gff</td>
+                        <td>2,323KB</td>
+                        <td><a href="{% static "data_upload/RiceLncRNA.gff" %}" download>download</a></td>
+                    </tr>
+                    <tr>
+                        <td>RiceLncRNA.gtf</td>
+                        <td>2,323KB</td>
+                        <td><a href="{% static "data_upload/RiceLncRNA.gtf" %}" download>download</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}
+
+
