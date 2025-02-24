@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'rice_database.wsgi.application'
-
+API_KEY = "44929232ce1d3ca9feaf4faafd591c99def3e5de"  # 替换为你的实际 DeepSeek API 密钥
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -149,4 +150,18 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+import os
+from decouple import config  # 建议使用 python-decouple 管理环境变量
 
+# DeepSeek API 配置
+API_KEY = config('API_KEY', default='44929232ce1d3ca9feaf4faafd591c99def3e5de')
+AVAILABLE_MODELS = {
+    'full': {
+        'model_name': 'deepseek-r1',  # “满血 DeepSeek” 模型名称
+        'base_url': 'https://aistudio.baidu.com/llm/lmapi/v3'  # 第一个 URL
+    },
+    'chat': {
+        'model_name': 'deepseek-r1:70b',  # “蒸馏 DeepSeek” 模型名称
+        'base_url': 'https://api-v6d9ke0242t8xct2.aistudio-app.com/v1'  # 第二个 URL，假设的地址
+    }
+}
