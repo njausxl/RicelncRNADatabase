@@ -1,4 +1,4 @@
-
+![DOI](https://img.shields.io/badge/DOI-10.20944%2Fpreprints202502.1634.v1-blue)
 # RiceLncRNADatabase
 ## 项目简介
 ### RiceLncRNADatabase 是一个面向水稻（*Oryza sativa*）长链非编码RNA（lncRNA）的综合数据库。它整合了水稻lncRNA的基因组定位、表达水平、功能注释等信息，并提供了多种数据检索、浏览和分析工具。用户可以方便地通过关键词检索、基因组位置、表达水平筛选lncRNA，并支持序列相似性搜索（BLAST）、数据下载和提交。
